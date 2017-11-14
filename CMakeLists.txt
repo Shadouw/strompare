@@ -10,7 +10,7 @@ get_filename_component ( projectname ${CMAKE_CURRENT_SOURCE_DIR} NAME )
 # Name the project
 project ( ${projectname}
           VERSION 0.0.1
-          DESCRIPTION "strompare is text comparison library"
+          # DESCRIPTION "strompare is text comparison library"
 		  LANGUAGES CXX )
 
 # Locate Boost libraries: unit_test_framework, date_time and regex
