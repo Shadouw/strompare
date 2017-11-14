@@ -2,7 +2,7 @@
 # https://stackoverflow.com/questions/17511496/create-a-shared-library-with-cmake
 
 # Basic CMake version
-cmake_minimum_required ( VERSION 3.5 )
+cmake_minimum_required ( VERSION 3.2 )
 
 # Get the project name from the current directory
 get_filename_component ( projectname ${CMAKE_CURRENT_SOURCE_DIR} NAME )
