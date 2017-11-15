@@ -42,7 +42,9 @@ configure_file(src/${projectname}.pc.in ${projectname}.pc @ONLY)
 # Add the source files. Avoid file(GLOB SRC_FILES ...)
 add_executable ( ${projectname}_test
                  include/strompare.h
-                 test/stromparetest.cpp
+                 test/levenshteintest.cpp
+                 test/dameraulevenshteintest.cpp
+                 test/versiontest.cpp
 )
 
 # Add INCLUDE folder
