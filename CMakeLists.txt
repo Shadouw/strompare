@@ -95,4 +95,9 @@ if(DOXYGEN_FOUND)
                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc
                         COMMENT "Generating API documentation with Doxygen" VERBATIM
                       )
+    add_custom_target ( docopen
+                        ${CMAKE_CURRENT_SOURCE_DIR}/doc/html/index.html
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc/html
+                      )
+
 endif(DOXYGEN_FOUND)

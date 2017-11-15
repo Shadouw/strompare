@@ -31,5 +31,6 @@
 *.out
 *.app
 
-# cmakes build folder
+# cmake folders: build, doc
 build/*
+doc/*
