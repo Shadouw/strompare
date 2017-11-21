@@ -29,6 +29,7 @@ configure_file(src/${projectname}version.h.in ${projectname}version.h @ONLY)
 add_library ( ${projectname} SHARED
               include/strompare.h
               src/strompare.cpp
+              src/ngram.cpp
 )
 
 # Set VERSION property
@@ -45,6 +46,7 @@ add_executable ( ${projectname}_test
                  test/levenshteintest.cpp
                  test/dameraulevenshteintest.cpp
                  test/versiontest.cpp
+                 test/ngramtest.cpp
 )
 
 # Add INCLUDE folder
