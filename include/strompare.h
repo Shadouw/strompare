@@ -3,6 +3,10 @@
 #include <string>
 #include <map>
 
+/************************************************************************//**
+ * \brief     A string comparison library
+ * \author    Shadouw
+ ****************************************************************************/
 namespace strompare
 {
     char const * version();
