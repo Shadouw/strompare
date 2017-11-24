@@ -1,5 +1,9 @@
 language: cpp
 
+before_script:
+  - sudo apt-get update -qq
+  - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev
+
 addons:
   apt:
     sources:
@@ -7,7 +11,6 @@ addons:
     packages:
       - g++-5
       - doxygen
-      - boost
 
 script:
   - CXX=/usr/bin/g++-5 CC=/usr/bin/gcc-5 cmake -D ENABLE_COVERAGE:BOOL=TRUE . 
