@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE ( SortAndSearchWordList )
         cout << WordList[i].Word.getText() << ": " << WordList[i].match << endl;
 
     // Search Germany
-    nGram<string> strGermany("germany", ng);
+    nGram<string> strGermany("gemany", ng);
 
     // Calculate the comparison
     for_each ( WordList.begin(), WordList.end(), [&strGermany](WordListStruct &n){ n.match=n.Word.compare(strGermany);} );
