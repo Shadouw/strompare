@@ -13,11 +13,11 @@ project ( ${projectname}
           # DESCRIPTION "strompare is text comparison library"
 		  LANGUAGES CXX )
 
-# Locate Boost libraries: unit_test_framework, date_time and regex
+# Locate Boost libraries: unit_test_framework
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.58 REQUIRED COMPONENTS unit_test_framework date_time regex)
+find_package(Boost 1.60 REQUIRED COMPONENTS unit_test_framework)
 
 # Enable C++11 features on gcc/clang
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|Clang)")
