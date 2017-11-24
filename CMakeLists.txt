@@ -17,7 +17,7 @@ project ( ${projectname}
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.59 REQUIRED COMPONENTS unit_test_framework date_time regex)
+find_package(Boost 1.58 REQUIRED COMPONENTS unit_test_framework date_time regex)
 
 # Enable C++11 features on gcc/clang
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|Clang)")
@@ -99,9 +99,16 @@ if(DOXYGEN_FOUND)
                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc
                         COMMENT "Generating API documentation with Doxygen" VERBATIM
                       )
-    add_custom_target ( docopen
-                        ${CMAKE_CURRENT_SOURCE_DIR}/doc/html/index.html
-                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc/html
-                      )
+    if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+        add_custom_target ( docopen
+                            ${CMAKE_CURRENT_SOURCE_DIR}/doc/html/index.html
+                            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc/html
+                          )
+    elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        add_custom_target ( docopen
+                            xdg-open ${CMAKE_CURRENT_SOURCE_DIR}/doc/html/index.html
+                            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc/html
+                          )
+    endif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 
 endif(DOXYGEN_FOUND)
