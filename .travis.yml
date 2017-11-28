@@ -9,7 +9,7 @@ before_install:
   - sudo apt-get update -qq
 install:
   # - sudo apt-get install libboost1.63-all-dev
-  - sudo apt-get install libboost-thread1.63-dev libboost-system1.63-dev libboost-test1.63-dev
+  - sudo apt-get install libboost-serialization1.63-dev libboost-atomic1.63-dev libboost-chrono1.63-dev libboost-date-time1.63-dev libboost-thread1.63-dev libboost-system1.63-dev libboost-test1.63-dev
   # - sudo apt-get install libboost1.64-all-dev (also tried)
 
 addons:
