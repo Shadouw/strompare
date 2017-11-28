@@ -4,6 +4,20 @@
 # Basic CMake version
 cmake_minimum_required ( VERSION 3.2 )
 
+if (CMAKE_COMPILER_IS_GNUCC)
+  option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
+
+  if (ENABLE_COVERAGE)
+    add_compile_options(--coverage -O0)
+  endif()
+endif()
+
+if (MSVC)
+  add_compile_options(/W4)
+else()
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
 # Get the project name from the current directory
 get_filename_component ( projectname ${CMAKE_CURRENT_SOURCE_DIR} NAME )
 
@@ -58,8 +72,7 @@ target_include_directories ( ${projectname}_test PRIVATE include )
 target_include_directories ( ${projectname}_test PRIVATE ${Boost_INCLUDE_DIRS} )
 
 # Link library
-target_link_libraries ( ${projectname}_test ${projectname} )
-target_link_libraries ( ${projectname}_test ${Boost_LIBRARIES} )
+target_link_libraries ( ${projectname}_test ${projectname} ${Boost_LIBRARIES} --coverage)
 
 # Define Installation
 include(GNUInstallDirs)
