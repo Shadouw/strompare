@@ -19,6 +19,7 @@ install:
   - sudo ./bootstrap.sh --prefix=/usr/local --with-libraries=test
   - sudo ./b2 -d0
   - sudo ./b2 -d0 --with-test install 
+  - cd ..
 
 addons:
   apt:
