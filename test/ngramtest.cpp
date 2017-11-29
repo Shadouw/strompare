@@ -76,6 +76,13 @@ BOOST_AUTO_TEST_CASE ( nGramShort3, * boost::unit_test::tolerance(0.00001) )
     BOOST_TEST ( 8.0/30.0 == Word1.compare(Word2) );
 }
 
+BOOST_AUTO_TEST_CASE ( PrintDebugInfo )
+{
+    // This is not actually an autotest but to show how print debuging information
+    nGram<string> Word1("the big brown fox is bigger than the big black fox.", 3);
+    Word1.printmap();
+}
+
 BOOST_AUTO_TEST_CASE ( SortAndSearchWordList )
 {
     const unsigned ng=3;
