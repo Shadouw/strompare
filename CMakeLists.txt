@@ -4,20 +4,6 @@
 # Basic CMake version
 cmake_minimum_required ( VERSION 3.2 )
 
-if (CMAKE_COMPILER_IS_GNUCC)
-  option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
-
-  if (ENABLE_COVERAGE)
-    add_compile_options(--coverage -O0)
-  endif()
-endif()
-
-if (MSVC)
-  add_compile_options(/W4)
-else()
-  add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
-
 # Get the project name from the current directory
 get_filename_component ( projectname ${CMAKE_CURRENT_SOURCE_DIR} NAME )
 
@@ -26,7 +12,7 @@ project ( ${projectname}
           VERSION 0.0.1
           # DESCRIPTION "strompare is text comparison library"
 		  LANGUAGES CXX )
-
+		  
 # Locate Boost libraries: unit_test_framework
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
@@ -35,7 +21,28 @@ find_package(Boost 1.60 REQUIRED COMPONENTS unit_test_framework)
 
 # Enable C++11 features on gcc/clang
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|Clang)")
-    set(CMAKE_CXX_FLAGS "-std=c++11")
+    #set(CMAKE_CXX_FLAGS "-std=c++11")
+	add_compile_options(-std=c++11)
+endif()
+
+# Enable Code coverage
+if ("${CMAKE_CXX_COMPILER_ID}"  MATCHES "(GNU|Clang)")
+  option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
+
+  if (ENABLE_COVERAGE)
+    message("  ENABLE_COVERAGE")
+    add_compile_options(--coverage -O0)
+	SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}--coverage" )
+  endif()
+endif()
+
+# Set warning level
+if (MSVC)
+  message("  Warning Level: MSVC")
+  add_compile_options(/W4)
+else()
+  message("  Warning Level: GNU")
+  add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 # Add the source files. Avoid file(GLOB SRC_FILES ...)
@@ -45,6 +52,8 @@ add_library ( ${projectname} SHARED
               src/strompare.cpp
               src/ngram.cpp
 )
+
+target_link_libraries ( ${projectname} ${CMAKE_EXE_LINKER_FLAGS} )
 
 # Set VERSION property
 set_target_properties ( ${projectname}
@@ -72,16 +81,18 @@ target_include_directories ( ${projectname}_test PRIVATE include )
 target_include_directories ( ${projectname}_test PRIVATE ${Boost_INCLUDE_DIRS} )
 
 # Link library
-target_link_libraries ( ${projectname}_test ${projectname} ${Boost_LIBRARIES} --coverage)
+target_link_libraries ( ${projectname}_test ${projectname} ${Boost_LIBRARIES} ${CMAKE_EXE_LINKER_FLAGS} )
 
 # Define Installation
 include(GNUInstallDirs)
 
 if(WIN32)
+	message("  Install: Windows")
     install ( TARGETS ${projectname}
               RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}
               PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
 else()
+	message("  Install: Linux")
     install ( TARGETS ${projectname}
               LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
               PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
@@ -122,6 +133,6 @@ if(DOXYGEN_FOUND)
                             xdg-open ${CMAKE_CURRENT_SOURCE_DIR}/doc/html/index.html
                             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc/html
                           )
-    endif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    endif()
 
 endif(DOXYGEN_FOUND)
