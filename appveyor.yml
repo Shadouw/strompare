@@ -1,13 +1,18 @@
 image:
   - Visual Studio 2017
-clone_folder: c:\projects\source
+clone_folder: c:\projects\strompare
+
+environment:
+  BOOST_ROOT: C:\Libraries\boost_1_65_1
+
+
 build_script:
 - cmd: >-
     mkdir build
 
     cd build
     
-    cmake c:\projects\source -G "Visual Studio 15"
+    cmake c:\projects\strompare -G "Visual Studio 15"
     
     cmake --build . --config "Debug"
 
