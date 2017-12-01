@@ -70,6 +70,7 @@ add_executable ( ${projectname}_test
                  test/dameraulevenshteintest.cpp
                  test/versiontest.cpp
                  test/ngramtest.cpp
+				 test/testcountries.h
 )
 
 # Add INCLUDE folder

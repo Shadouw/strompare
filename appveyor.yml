@@ -12,7 +12,7 @@ build_script:
 
     cd build
     
-    cmake c:\projects\strompare -G "Visual Studio 15"
+    cmake c:\projects\strompare -G "Visual Studio 15 2017 Win64"
     
     cmake --build . --config "Debug"
 
