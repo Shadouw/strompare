@@ -1,10 +1,11 @@
-#ifdef _MSC_VER_
-#include <windef.h>
-#endif // _MSC_VER_
-
 #include <string>
 #include <strompare.h>
 #include <iostream>
+
+// Make Visual Studio happy
+#ifndef min
+#define min(a,b) (a<b?a:b)
+#endif // min
 
 using namespace std;
 
