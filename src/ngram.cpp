@@ -1,3 +1,7 @@
+#ifdef _MSC_VER_
+#include <windef.h>
+#endif // _MSC_VER_
+
 #include <string>
 #include <strompare.h>
 #include <iostream>
