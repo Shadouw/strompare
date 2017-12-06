@@ -1,5 +1,5 @@
 #include <string>
-#include <strompare.h>
+#include <strompare/ngram.h>
 #include <iostream>
 
 // Make Visual Studio happy

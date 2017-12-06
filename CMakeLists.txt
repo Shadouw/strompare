@@ -12,7 +12,7 @@ project ( ${projectname}
           VERSION 0.0.1
           # DESCRIPTION "strompare is text comparison library"
 		  LANGUAGES CXX )
-		  
+
 # Locate Boost libraries: unit_test_framework
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
@@ -49,7 +49,10 @@ endif()
 configure_file(src/${projectname}version.h.in ${projectname}version.h @ONLY)
 add_library ( ${projectname} SHARED
               include/strompare.h
+              include/strompare/ngram.h
+              include/strompare/levenshtein.h
               src/strompare.cpp
+              src/levenshtein.cpp
               src/ngram.cpp
 )
 
@@ -66,6 +69,8 @@ configure_file(src/${projectname}.pc.in ${projectname}.pc @ONLY)
 # Add the source files. Avoid file(GLOB SRC_FILES ...)
 add_executable ( ${projectname}_test
                  include/strompare.h
+                 include/strompare/ngram.h
+                 include/strompare/levenshtein.h
                  test/levenshteintest.cpp
                  test/dameraulevenshteintest.cpp
                  test/versiontest.cpp
