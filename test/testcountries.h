@@ -1,7 +1,7 @@
 // Some countries to play with...
 // Taken from https://gist.github.com/kalinchernev/486393efcca01623b18d
 
-std::string testcountries[] =
+static std::string testcountries[] =
 {
     "Afghanistan",
     "Albania",

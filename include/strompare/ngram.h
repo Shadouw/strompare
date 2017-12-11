@@ -5,8 +5,11 @@
 
 namespace strompare
 {
+    template<class T> class nGramSearch;
+
     template<class T> class nGram
     {
+    friend class nGramSearch<T>;
     public:
         //nGram() = delete;
         nGram( T, unsigned int );
@@ -17,9 +20,9 @@ namespace strompare
 
         T getText() const {return m_Text;}
     private:
-        unsigned int m_nLength;
         T m_Text;
-        std::map<std::string, int> m_mapNGram;
+        unsigned int m_nLength;
+        std::map<std::string, unsigned int> m_mapNGram;
         unsigned int m_nCount;
     };
 }

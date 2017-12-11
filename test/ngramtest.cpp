@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
-#include <strompare.h>
+
 #include <boost/test/unit_test.hpp>
 
-#include "testcountries.h"
+#include <strompare.h>
 
 using namespace std;
 using namespace strompare;
+
+#include "testcountries.h"
 
 BOOST_AUTO_TEST_CASE ( nGramLength, * boost::unit_test::tolerance(0.00001) )
 {
@@ -22,12 +23,12 @@ BOOST_AUTO_TEST_CASE ( nGramIdent, * boost::unit_test::tolerance(0.00001) )
 {
     nGram<string> Word1("the big brown fox", 2);
 
-    BOOST_TEST ( 16 == Word1.countmatches(Word1) );
+    BOOST_TEST ( 16u == Word1.countmatches(Word1) );
     BOOST_TEST ( 1.0 == Word1.compare(Word1) );
 
     nGram<string> Word2("the big brown fox", 3);
 
-    BOOST_TEST ( 15 == Word2.countmatches(Word2) );
+    BOOST_TEST ( 15u == Word2.countmatches(Word2) );
     BOOST_TEST ( 1.0 == Word2.compare(Word2) );
 }
 
@@ -36,13 +37,13 @@ BOOST_AUTO_TEST_CASE ( nGramEmpty2, * boost::unit_test::tolerance(0.00001) )
     nGram<string> Word1("the big brown fox", 2);
     nGram<string> Word2("", 2);
 
-    BOOST_TEST ( 0 == Word1.countmatches(Word2) );
+    BOOST_TEST ( 0u == Word1.countmatches(Word2) );
     BOOST_TEST ( 0.0 == Word1.compare(Word2) );
 
-    BOOST_TEST ( 0 == Word2.countmatches(Word1) );
+    BOOST_TEST ( 0u == Word2.countmatches(Word1) );
     BOOST_TEST ( 0.0 == Word2.compare(Word1) );
 
-    BOOST_TEST ( 0 == Word2.countmatches(Word2) );
+    BOOST_TEST ( 0u == Word2.countmatches(Word2) );
     BOOST_TEST ( 1.0 == Word2.compare(Word2) );
 }
 
@@ -51,13 +52,13 @@ BOOST_AUTO_TEST_CASE ( nGramEmpty3, * boost::unit_test::tolerance(0.00001) )
     nGram<string> Word1("the big brown fox", 3);
     nGram<string> Word2("", 3);
 
-    BOOST_TEST ( 0 == Word1.countmatches(Word2) );
+    BOOST_TEST ( 0u == Word1.countmatches(Word2) );
     BOOST_TEST ( 0.0 == Word1.compare(Word2) );
 
-    BOOST_TEST ( 0 == Word2.countmatches(Word1) );
+    BOOST_TEST ( 0u == Word2.countmatches(Word1) );
     BOOST_TEST ( 0.0 == Word2.compare(Word1) );
 
-    BOOST_TEST ( 0 == Word2.countmatches(Word2) );
+    BOOST_TEST ( 0u == Word2.countmatches(Word2) );
     BOOST_TEST ( 1.0 == Word2.compare(Word2) );
 }
 
@@ -66,7 +67,7 @@ BOOST_AUTO_TEST_CASE ( nGramShort, * boost::unit_test::tolerance(0.00001) )
     nGram<string> Word1("the big brown fox", 2);
     nGram<string> Word2("The Byg Brown Fox", 2);
 
-    BOOST_TEST ( 8 == Word1.countmatches(Word2) );
+    BOOST_TEST ( 8u == Word1.countmatches(Word2) );
     BOOST_TEST ( 0.5 == Word1.compare(Word2) );
 }
 
@@ -75,7 +76,7 @@ BOOST_AUTO_TEST_CASE ( nGramShort3, * boost::unit_test::tolerance(0.00001) )
     nGram<string> Word1("the big brown fox", 3);
     nGram<string> Word2("The Byg Brown Fox", 3);
 
-    BOOST_TEST ( 4 == Word1.countmatches(Word2) );
+    BOOST_TEST ( 4u == Word1.countmatches(Word2) );
     BOOST_TEST ( 8.0/30.0 == Word1.compare(Word2) );
 }
 
@@ -103,11 +104,6 @@ BOOST_AUTO_TEST_CASE ( SortAndSearchWordList )
     for ( auto country : testcountries )
         WordList.push_back ( WordListStruct(country) );
 
-    // Print Top 10 (at this stage the first 10 countries)
-    cout << "### Initial:" << endl;
-    for ( int i=0; i<10; ++i )
-        cout << WordList[i].Word.getText() << ": " << WordList[i].match << endl;
-
     // Search Germany
     nGram<string> strGermany("gemany", ng);
 
@@ -122,8 +118,13 @@ BOOST_AUTO_TEST_CASE ( SortAndSearchWordList )
                     return a.match > b.match;
                 });
 
-    // Print Top 10 (at this stage the first 10 countries)
-    cout << "### germany:" << endl;
-    for ( int i=0; i<10; ++i )
-        cout << WordList[i].Word.getText() << ": " << WordList[i].match << endl;
+    // Test some results:
+    BOOST_TEST ( std::string("Germany")   == WordList[0].Word.getText() );
+    BOOST_TEST ( 4.0/9.0   == WordList[0].match );
+    BOOST_TEST ( std::string("Oman")      == WordList[1].Word.getText() );
+    BOOST_TEST ( 2.0/6.0   == WordList[1].match );
+    BOOST_TEST ( std::string("Romania")   == WordList[2].Word.getText() );
+    BOOST_TEST ( 2.0/9.0   == WordList[2].match );
+    BOOST_TEST ( std::string("Guatemala") == WordList[3].Word.getText() );
+    BOOST_TEST ( 2.0/11.0   == WordList[3].match );
 }

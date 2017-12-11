@@ -50,10 +50,12 @@ configure_file(src/${projectname}version.h.in ${projectname}version.h @ONLY)
 add_library ( ${projectname} SHARED
               include/strompare.h
               include/strompare/ngram.h
+              include/strompare/ngramsearch.h
               include/strompare/levenshtein.h
               src/strompare.cpp
               src/levenshtein.cpp
               src/ngram.cpp
+              src/ngramsearch.cpp
 )
 
 target_link_libraries ( ${projectname} ${CMAKE_EXE_LINKER_FLAGS} )
@@ -70,11 +72,13 @@ configure_file(src/${projectname}.pc.in ${projectname}.pc @ONLY)
 add_executable ( ${projectname}_test
                  include/strompare.h
                  include/strompare/ngram.h
+                 include/strompare/ngramsearch.h
                  include/strompare/levenshtein.h
                  test/levenshteintest.cpp
                  test/dameraulevenshteintest.cpp
                  test/versiontest.cpp
                  test/ngramtest.cpp
+                 test/ngramsearchtest.cpp
 				 test/testcountries.h
 )
 
