@@ -1,15 +1,12 @@
 #include <iostream>
 #include <strompare.h>
 
-using namespace std;
-using namespace strompare;
-
 int main ( void )
 {
-    // Initialize
-    nGramSearch<string> ngsearch(3);
+    // Initialize the search engine to use tri-grams:
+    strompare::nGramSearch<std::string> ngsearch(3);
 
-    // Add some texts to search
+    // Add some texts to search:
     ngsearch.addText("one");
     ngsearch.addText("two");
     ngsearch.addText("three");
@@ -27,19 +24,21 @@ int main ( void )
     ngsearch.prepareSearch();
 
     // Search and find
-    map<unsigned int, set<nGram<string>*>> found = ngsearch.find("three");
+    std::map<unsigned int, std::set<strompare::nGram<std::string>*>> found = ngsearch.find("three");
 
     // Show the results
-    for ( typename map<unsigned int, set<nGram<string>*>>::reverse_iterator rit=found.rbegin(); rit!=found.rend(); ++rit )
+    for ( typename std::map<unsigned int, std::set<strompare::nGram<std::string>*>>::reverse_iterator rit=found.rbegin();
+          rit!=found.rend();
+          ++rit )
     {
         if ( 0 != rit->second.size() )
         {
-            cout << rit->first << ": " ;
+            std::cout << rit->first << ": " ;
             for ( auto entry: rit->second )
             {
-                cout << entry->getText() << "; " ;
+                std::cout << entry->getText() << "; " ;
             }
-            cout << endl;
+            std::cout << std::endl;
         }
     }
 

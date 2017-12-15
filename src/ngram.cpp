@@ -50,6 +50,9 @@ template<class T> strompare::nGram<T>::nGram ( T text, unsigned int nLength ) :
  * \return    Number of matching ngrams in both texts
  * \exception invalid_argument
  * \author    Shadouw
+ *
+ * "bonbon" (2x bon, onb, nbo) and "bonjour" (bon, onj, njo, jou, our) have
+ * only 1 trigram "bon" in common.
  ****************************************************************************/
 template<class T> unsigned int strompare::nGram<T>::countmatches ( const nGram<T>& other ) const throw(std::invalid_argument)
 {
@@ -74,6 +77,11 @@ template<class T> unsigned int strompare::nGram<T>::countmatches ( const nGram<T
  * \return    2 * MatchingNGrams / ( NumOfNGrams1 + NumOfNGrams2 )
  * \exception invalid_argument
  * \author    Shadouw
+ *
+ * "bonbon" (2x bon, onb, nbo) and "bonjour" (bon, onj, njo, jou, our) have
+ * 1 trigram "bon" in common, but in total 4+5=9 ngrams.
+ *
+ * ngram based similarity is hence 2/9.
  ****************************************************************************/
 template<class T> double strompare::nGram<T>::compare ( const nGram<T>& other ) const throw(std::invalid_argument)
 {

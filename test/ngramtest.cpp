@@ -80,6 +80,15 @@ BOOST_AUTO_TEST_CASE ( nGramShort3, * boost::unit_test::tolerance(0.00001) )
     BOOST_TEST ( 8.0/30.0 == Word1.compare(Word2) );
 }
 
+BOOST_AUTO_TEST_CASE ( nGramBonbon, * boost::unit_test::tolerance(0.00001) )
+{
+    nGram<string> Word1("bonbon", 3);
+    nGram<string> Word2("bonjour", 3);
+
+    BOOST_TEST ( 1u == Word1.countmatches(Word2) );
+    BOOST_TEST ( 2.0/9.0 == Word1.compare(Word2) );
+}
+
 BOOST_AUTO_TEST_CASE ( PrintDebugInfo )
 {
     // This is not actually an autotest but to show how print debuging information
