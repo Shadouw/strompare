@@ -83,6 +83,14 @@ add_executable ( ${projectname}_test
 				 test/testnouns.h
 )
 
+add_executable ( ${projectname}_find_example
+                 include/strompare.h
+                 include/strompare/ngram.h
+                 include/strompare/ngramsearch.h
+                 include/strompare/levenshtein.h
+                 examples/${projectname}_find_example.cpp
+)
+
 # Add INCLUDE folder
 target_include_directories ( ${projectname} PRIVATE include )
 target_include_directories ( ${projectname} PRIVATE src )
@@ -91,8 +99,12 @@ target_include_directories ( ${projectname} PRIVATE ${CMAKE_BINARY_DIR} )
 target_include_directories ( ${projectname}_test PRIVATE include )
 target_include_directories ( ${projectname}_test PRIVATE ${Boost_INCLUDE_DIRS} )
 
+target_include_directories ( ${projectname}_find_example PRIVATE include )
+
+
 # Link library
 target_link_libraries ( ${projectname}_test ${projectname} ${Boost_LIBRARIES} ${CMAKE_EXE_LINKER_FLAGS} )
+target_link_libraries ( ${projectname}_find_example ${projectname} ${CMAKE_EXE_LINKER_FLAGS} )
 
 # Define Installation
 include(GNUInstallDirs)

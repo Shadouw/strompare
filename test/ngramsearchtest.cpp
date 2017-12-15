@@ -125,19 +125,4 @@ BOOST_AUTO_TEST_CASE ( NGramSearchNouns )
 
     cout << "Search          : " << double(end - prepared) / CLOCKS_PER_SEC << " s" << endl;
     cout << "Time per Search : " << double(end - prepared) / (CLOCKS_PER_SEC*numofsearches) << " s" << endl;
-
-    /*
-    for ( typename std::map<unsigned int, std::set<nGram<string>*>>::reverse_iterator rit=found.rbegin(); rit!=found.rend(); ++rit )
-    {
-        //if ( 0 != rit->second.size() )
-        {
-            cout << rit->first << ": " ;
-            for ( auto entry: rit->second )
-            {
-                cout << entry->getText() << "; " ;
-            }
-            cout << endl;
-        }
-    }
-    */
 }
