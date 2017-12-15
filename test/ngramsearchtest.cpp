@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <ctime>
 
 #include <boost/test/unit_test.hpp>
 
@@ -13,8 +14,9 @@ using namespace std;
 using namespace strompare;
 
 #include "testcountries.h"
+#include "testnouns.h"
 
-BOOST_AUTO_TEST_CASE ( NGramSearch )
+BOOST_AUTO_TEST_CASE ( NGramSearchCountries )
 {
     const unsigned ng=3;
 
@@ -80,6 +82,62 @@ BOOST_AUTO_TEST_CASE ( NGramSearch )
     */
 }
 
+BOOST_AUTO_TEST_CASE ( NGramSearchNouns )
+{
+    const unsigned ng=3;
+    const unsigned non=sizeof(testnouns)/sizeof(testnouns[0]);
 
+    nGramSearch<string> ngsearch(ng);
 
+    cout << endl << endl;
+    cout << "#####################" << endl;
+    cout << "# found results     :" << endl;
+    cout << "#####################" << endl;
+    cout << "Number of nouns : " << sizeof(testnouns)/sizeof(testnouns[0]) << endl;
 
+    // Measure the time
+    clock_t begin = clock();
+
+    // Add nouns to ListOfTexts and ngram-ize them
+    for ( unsigned long i=0; i<100000; i++ )
+    {
+        ngsearch.addText(testnouns[rand() % non] + " " + testnouns[rand() % non] + " " + testnouns[rand() % non]);
+    }
+    //for ( auto noun : testnouns )
+    //    ngsearch.addText(noun);
+
+    ngsearch.prepareSearch();
+
+    clock_t prepared = clock();
+    cout << "Number of texts : " << ngsearch.getNumberOfTexts() << endl;
+    cout << "Load and prepare: " << double(prepared - begin) / CLOCKS_PER_SEC << " s" << endl;
+
+    //
+    // Now lets search something
+    //
+    const unsigned long numofsearches=100;
+    for ( unsigned long i=0; i<numofsearches; i++ )
+    {
+        std::map<unsigned int, std::set<nGram<string>*>> found = ngsearch.find(testnouns[rand() % non] + " " + testnouns[rand() % non]);
+    }
+
+    clock_t end = clock();
+
+    cout << "Search          : " << double(end - prepared) / CLOCKS_PER_SEC << " s" << endl;
+    cout << "Time per Search : " << double(end - prepared) / (CLOCKS_PER_SEC*numofsearches) << " s" << endl;
+
+    /*
+    for ( typename std::map<unsigned int, std::set<nGram<string>*>>::reverse_iterator rit=found.rbegin(); rit!=found.rend(); ++rit )
+    {
+        //if ( 0 != rit->second.size() )
+        {
+            cout << rit->first << ": " ;
+            for ( auto entry: rit->second )
+            {
+                cout << entry->getText() << "; " ;
+            }
+            cout << endl;
+        }
+    }
+    */
+}

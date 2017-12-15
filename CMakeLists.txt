@@ -80,6 +80,7 @@ add_executable ( ${projectname}_test
                  test/ngramtest.cpp
                  test/ngramsearchtest.cpp
 				 test/testcountries.h
+				 test/testnouns.h
 )
 
 # Add INCLUDE folder

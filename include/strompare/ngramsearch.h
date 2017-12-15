@@ -8,6 +8,14 @@
 
 namespace strompare
 {
+    /************************************************************************//**
+     * \brief     Provides a fast search on texts
+     * \author    Shadouw
+     *
+     * After initializing with the ngram length, add some texts.
+     * Then call #prepareSearch to build reverse structures for faster searches
+     * Finally #find will be used to find best matching texts in the list.
+     ****************************************************************************/
     template<class T> class nGramSearch
     {
     public:
@@ -15,6 +23,7 @@ namespace strompare
         void addText ( T );
         void prepareSearch ();
         std::map<unsigned int, std::set<nGram<T>*>> find ( T );
+        unsigned int getNumberOfTexts();
 
     private:
         unsigned int m_nLength;                                            // ngram length

@@ -4,19 +4,36 @@
 using namespace std;
 using namespace strompare;
 
+/************************************************************************//**
+ * \brief     Initialisation, saves the ngram length for later comparison
+ * \param     [in]  nLength: ngram length
+ * \exception -
+ * \author    Shadouw
+ ****************************************************************************/
 template<class T> strompare::nGramSearch<T>::nGramSearch ( unsigned int nLength ) :
     m_nLength ( nLength )
     {
 
     }
 
-
+/************************************************************************//**
+ * \brief     Adds a text to a searchable list
+ * \param     [in]  text: the text to add
+ * \exception -
+ * \author    Shadouw
+ ****************************************************************************/
 template<class T> void strompare::nGramSearch<T>::addText ( T text )
 {
     m_ListOfTexts.push_back ( nGram<T>(text, m_nLength) );
 }
 
-
+/************************************************************************//**
+ * \brief     Builds reverse structures for faster search
+ * \exception bad_alloc
+ * \author    Shadouw
+ *
+ * Call this after #addText and before #find
+ ****************************************************************************/
 template<class T> void strompare::nGramSearch<T>::prepareSearch()
 {
     m_MapNGramToTexts.clear();
@@ -28,6 +45,17 @@ template<class T> void strompare::nGramSearch<T>::prepareSearch()
     }
 }
 
+/************************************************************************//**
+ * \brief     Finds a text in the saved lists of texts
+ * \param     [in]  phrase: text to search
+ * \return    map(set(pointer to saved text))
+ * \exception -
+ * \author    Shadouw
+ *
+ * The returned _map of pointer-sets_ is already ordered by number of
+ * matching ngrams.
+ * To find best matches, iterate backwards.
+ ****************************************************************************/
 template<class T> map<unsigned int, set<nGram<T>*>> strompare::nGramSearch<T>::find ( T phrase )
 {
     // Prepare the search phrase
@@ -62,6 +90,17 @@ template<class T> map<unsigned int, set<nGram<T>*>> strompare::nGramSearch<T>::f
     }
 
     return orderedsearchresults;
+}
+
+/************************************************************************//**
+ * \brief     Returns the number of stored and ngramified texts
+ * \return    Numver of stored texts
+ * \exception -
+ * \author    Shadouw
+ ****************************************************************************/
+template<class T> unsigned int strompare::nGramSearch<T>::getNumberOfTexts ( )
+{
+    return m_ListOfTexts.size();
 }
 
 // Force compiler to generate specialized classes

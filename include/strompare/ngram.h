@@ -7,6 +7,10 @@ namespace strompare
 {
     template<class T> class nGramSearch;
 
+    /************************************************************************//**
+     * \brief     Splits text in ngrams to compare severals texts.
+     * \author    Shadouw
+     ****************************************************************************/
     template<class T> class nGram
     {
     friend class nGramSearch<T>;
@@ -18,7 +22,7 @@ namespace strompare
 
         void printmap() const;
 
-        T getText() const {return m_Text;}
+        T getText() const;
     private:
         T m_Text;
         unsigned int m_nLength;

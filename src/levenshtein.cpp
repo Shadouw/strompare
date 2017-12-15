@@ -9,7 +9,7 @@ using namespace std;
  * \param     [in]  string1
  * \param     [in]  string2
  * \param     [in]  bDamerauLevenshtein
- * \return    FUNCTIONTYPE
+ * \return    Levenshtein distance
  * \exception std::bad_alloc
  * \author    Shadouw
  *

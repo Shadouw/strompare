@@ -9,6 +9,18 @@
 
 using namespace std;
 
+/************************************************************************//**
+ * \brief     Saves a text and its ngrams
+ * \param     [in]  text to ngramify
+ * \param     [in]  nLength: the length of ngrams
+ * \exception -
+ * \author    Shadouw
+ *
+ * With the word "bonbon" and ngram length of two it splits into:
+ * - bon 2x
+ * - onb 1x
+ * - nbo 1x
+ ****************************************************************************/
 template<class T> strompare::nGram<T>::nGram ( T text, unsigned int nLength ) :
     m_Text ( text ),
     m_nLength ( nLength ),
@@ -32,6 +44,13 @@ template<class T> strompare::nGram<T>::nGram ( T text, unsigned int nLength ) :
     }
 }
 
+/************************************************************************//**
+ * \brief     Compares ngrams of two texts and returns the number of matches
+ * \param     [in]  other: the other text to compare with
+ * \return    Number of matching ngrams in both texts
+ * \exception invalid_argument
+ * \author    Shadouw
+ ****************************************************************************/
 template<class T> unsigned int strompare::nGram<T>::countmatches ( const nGram<T>& other ) const throw(std::invalid_argument)
 {
     if ( m_nLength!= other.m_nLength )
@@ -49,6 +68,13 @@ template<class T> unsigned int strompare::nGram<T>::countmatches ( const nGram<T
     return nc;
 }
 
+/************************************************************************//**
+ * \brief     Calculates ngram comparison
+ * \param     [in]  other: the other text to compare with
+ * \return    2 * MatchingNGrams / ( NumOfNGrams1 + NumOfNGrams2 )
+ * \exception invalid_argument
+ * \author    Shadouw
+ ****************************************************************************/
 template<class T> double strompare::nGram<T>::compare ( const nGram<T>& other ) const throw(std::invalid_argument)
 {
     // If both are empty they are equal
@@ -59,12 +85,28 @@ template<class T> double strompare::nGram<T>::compare ( const nGram<T>& other ) 
     return ( 2.0 * (double)countmatches(other) / ((double)m_nCount+(double)other.m_nCount) );
 }
 
-template<class T> void strompare::nGram<T>::printmap () const
+/************************************************************************//**
+ * \brief     Prints (for debugging reasons) a map of ngrams
+ * \exception -
+ * \author    Shadouw
+ ****************************************************************************/
+ template<class T> void strompare::nGram<T>::printmap () const
 {
     for ( auto elem : m_mapNGram )
         cout << elem.first << "[" << elem.second << "] ";
 
     cout << endl;
+}
+
+/************************************************************************//**
+ * \brief     Returns the "original" text
+ * \return    the saved text
+ * \exception -
+ * \author    Shadouw
+ ****************************************************************************/
+template<class T> T strompare::nGram<T>::getText() const
+{
+    return m_Text;
 }
 
 // Force compiler to generate specialized classes
