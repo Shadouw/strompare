@@ -29,7 +29,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-5
-      - boost1.65
+      - boost1.68
       - doxygen
 
 script:
