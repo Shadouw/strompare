@@ -6,7 +6,8 @@ before_script:
 
 before_install:
 #  - sudo add-apt-repository -y ppa:nschloe/boost-nightly
-  - sudo add-apt-repository -y ppa:mhier/libboost-latest
+#  - sudo add-apt-repository -y ppa:mhier/libboost-latest
+  - sudo add-apt-repository universe
   - sudo apt-get update -qq
 install:
   - sudo apt-get install libboost1.68
