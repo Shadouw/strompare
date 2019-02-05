@@ -5,6 +5,7 @@ before_script:
 #  - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev
   - sudo add-apt-repository universe
   - sudo apt-get update -qq
+  - sudo apt list libboost*
   - sudo apt-get install libboost1.65.1-all-dev
 before_install:
 #  - sudo add-apt-repository -y ppa:nschloe/boost-nightly
