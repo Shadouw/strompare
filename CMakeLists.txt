@@ -17,7 +17,7 @@ project ( ${projectname}
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.60 REQUIRED COMPONENTS unit_test_framework)
+find_package(Boost 1.60 REQUIRED COMPONENTS unit_test_framework filesystem)
 
 # Enable C++11 features on gcc/clang
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|Clang)")
@@ -91,6 +91,14 @@ add_executable ( ${projectname}_find_example
                  examples/${projectname}_find_example.cpp
 )
 
+add_executable ( ${projectname}files
+                 include/strompare.h
+                 include/strompare/ngram.h
+                 include/strompare/ngramsearch.h
+                 include/strompare/levenshtein.h
+                 examples/${projectname}files.cpp
+)
+
 # Add INCLUDE folder
 target_include_directories ( ${projectname} PRIVATE include )
 target_include_directories ( ${projectname} PRIVATE src )
@@ -101,10 +109,14 @@ target_include_directories ( ${projectname}_test PRIVATE ${Boost_INCLUDE_DIRS} )
 
 target_include_directories ( ${projectname}_find_example PRIVATE include )
 
+target_include_directories ( ${projectname}files PRIVATE ${Boost_INCLUDE_DIRS} )
+target_include_directories ( ${projectname}files PRIVATE include )
+
 
 # Link library
 target_link_libraries ( ${projectname}_test ${projectname} ${Boost_LIBRARIES} ${CMAKE_EXE_LINKER_FLAGS} )
 target_link_libraries ( ${projectname}_find_example ${projectname} ${CMAKE_EXE_LINKER_FLAGS} )
+target_link_libraries ( ${projectname}files ${projectname} ${Boost_LIBRARIES} ${CMAKE_EXE_LINKER_FLAGS} )
 
 # Define Installation
 include(GNUInstallDirs)
