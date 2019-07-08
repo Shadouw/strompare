@@ -12,7 +12,7 @@ project ( ${projectname}
 #
 		  
 # Add the source files. Avoid file(GLOB SRC_FILES ...)
-configure_file(src/${projectname}version.h.in ${projectname}version.h @ONLY)
+configure_file(src/${projectname}version.h.in ${CMAKE_BINARY_DIR}/${projectname}version.h @ONLY)
 add_library ( ${projectname} SHARED
               ../include/strompare.h
               ../include/strompare/ngram.h
