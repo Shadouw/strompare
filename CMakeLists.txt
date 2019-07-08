@@ -50,24 +50,6 @@ add_subdirectory(stromparelib)
 add_subdirectory(strompare_find_example)
 add_subdirectory(stromparefiles)
 
-# Define Installation
-include(GNUInstallDirs)
-
-if(WIN32)
-	message("  Install: Windows")
-    install ( TARGETS ${projectname}
-              RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}
-              PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
-else()
-	message("  Install: Linux")
-    install ( TARGETS ${projectname}
-              LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-              PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
-endif()
-
-install(FILES ${CMAKE_BINARY_DIR}/${projectname}.pc
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
-
 # Doxygen Documentation
 find_package(Doxygen)
 if(DOXYGEN_FOUND)

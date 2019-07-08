@@ -80,3 +80,28 @@ add_custom_command(TARGET ${projectname}_test POST_BUILD COMMAND ${projectname}_
 add_custom_target ( build-test COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${CMAKE_BINARY_DIR}/${projectname}_test )
 #add_dependencies( test ${projectname}_test )
 add_dependencies( ${projectname}_test ${projectname} )
+
+
+#
+# Installation
+#
+
+# Define Installation
+include(GNUInstallDirs)
+
+if(WIN32)
+	message("  Install: Windows")
+    install ( TARGETS ${projectname}
+              RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}
+              PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
+else()
+	message("  Install: Linux")
+    install ( TARGETS ${projectname}
+              LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+              PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
+endif()
+
+install(FILES ${CMAKE_BINARY_DIR}/${subprojectname}/${projectname}.pc
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+
