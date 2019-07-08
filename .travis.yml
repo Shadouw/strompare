@@ -24,9 +24,9 @@ install:
   - sudo wget -O boost_1_65_1.tar.gz http://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.gz/download
   - sudo tar xzvf boost_1_65_1.tar.gz > /dev/null
   - cd boost_1_65_1/
-  - sudo ./bootstrap.sh --prefix=/usr/local --with-libraries=test
+  - sudo ./bootstrap.sh --prefix=/usr/local --with-libraries=test,filesystem,system
   - sudo ./b2 -d0
-  - sudo ./b2 -d0 --with-test install 
+  - sudo ./b2 -d0 --with-test --with-filesystem --with-system install 
   - cd ..
 
 addons:
@@ -39,6 +39,7 @@ addons:
       - g++-5
       # - boost1.68
       - doxygen
+      - graphviz
 
 script:
   - CXX=/usr/bin/g++-5 CC=/usr/bin/gcc-5 cmake -D ENABLE_COVERAGE:BOOL=TRUE . 
