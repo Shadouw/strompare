@@ -25,17 +25,6 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|Clang)")
 	add_compile_options(-std=c++11)
 endif()
 
-# Enable Code coverage
-if ("${CMAKE_CXX_COMPILER_ID}"  MATCHES "(GNU|Clang)")
-  option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
-
-  if (ENABLE_COVERAGE)
-    message("  ENABLE_COVERAGE")
-    add_compile_options(--coverage -O0)
-	SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}--coverage" )
-  endif()
-endif()
-
 # Set warning level
 if (MSVC)
   message("  Warning Level: MSVC")
@@ -49,6 +38,17 @@ endif()
 add_subdirectory(stromparelib)
 add_subdirectory(strompare_find_example)
 add_subdirectory(stromparefiles)
+
+
+#
+# Dependencies
+#
+
+# Due to a cmake bug (no dependencies project/test) I define my own test target:
+add_custom_target ( build-test COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${CMAKE_BINARY_DIR}/${projectname}_test )
+#add_dependencies( test ${projectname}_test )
+add_dependencies( ${projectname}_test ${projectname} )
+
 
 # Doxygen Documentation
 find_package(Doxygen)
