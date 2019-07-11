@@ -75,18 +75,12 @@ add_test ( ${projectname}_test ${CMAKE_BINARY_DIR}/${projectname}_test )
 # Run the tests on every build
 add_custom_command(TARGET ${projectname}_test POST_BUILD COMMAND ${projectname}_test )
 
-#
-# Enable Code Coverage
-#
-if ("${CMAKE_CXX_COMPILER_ID}"  MATCHES "(GNU|Clang)")
-  option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
+# Dependencies
+# Due to a cmake bug (no dependencies project/test) I define my own test target:
+add_custom_target ( build-test COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${CMAKE_BINARY_DIR}/${projectname}_test )
+#add_dependencies( test ${projectname}_test )
+add_dependencies( ${projectname}_test ${projectname} )
 
-  if (ENABLE_COVERAGE)
-    message("  ENABLE_COVERAGE")
-    add_compile_options(--coverage -O0)
-	SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}--coverage" )
-  endif()
-endif()
 
 #
 # Installation
