@@ -1,3 +1,3 @@
 ignore:
-    - "stromparefiles"
-    - "strompare_find_example"
+    - "stromparefiles/.*"
+    - "strompare_find_example.*"
