@@ -1,4 +1,4 @@
 ignore:
- - "stromparefiles/src/stromparefiles.cpp"
- - "strompare_find_example/src/strompare_find_example.cpp"
+ - "**/stromparefiles/src/stromparefiles.cpp"
+ - "**/strompare_find_example/src/strompare_find_example.cpp"
  
