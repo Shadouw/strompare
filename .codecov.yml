@@ -1,3 +1,5 @@
 ignore:
   - "**/stromparefiles"
   - "**/strompare_find_example"
+  - "*"
+  - "**"
