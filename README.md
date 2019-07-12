@@ -8,6 +8,10 @@
 
 `strompare` is text comparison library
 
+Remark about the code coverage: Only the library has test coverage. Therefore examples and additional tools are not covered.
+
+## Introduction
+
 It can calculate (Damerau-)Levenshtein distance, but its main feature is
 to compare and find texts based on ngrams.
 
@@ -32,7 +36,9 @@ Based on this comparison (to be more exact on the number of matching ngrams) a f
 
 `class nGramSearch` makes use of special data structures to find similar words/texts.
 
-`examples\strompare_find_example.cpp` shows how to use the library:
+## Example
+
+`strompare_find_example` shows how to use the library:
 
 Include the header:
 
@@ -87,3 +93,10 @@ The output of this example is
 
     3: three; twentythree; thirtythree;
     1: tree;
+
+## File comparison tool
+
+`stromparefiles` makes use of the library to compare two files or a folder structure.
+
+`stromparefiles -h` shows the command line options. Add files to compare with `-f`, add directories with `-d`.
+Output is a csv with two compared files, the number of matching ngrams and the ngram based comparison value per row.
